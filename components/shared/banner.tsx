@@ -1,0 +1,283 @@
+"use client";
+
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useRef } from "react";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Button } from "../ui/button";
+import Autoplay from "embla-carousel-autoplay";
+// import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+
+export default function Banner() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Parallax scroll effect
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]); // slower background movement
+
+  return (
+    <section
+      ref={ref}
+      className="relative h-[90vh] md:h-[100vh] w-full overflow-hidden"
+    >
+      {/* Parallax Background Image */}
+      <motion.div
+        style={{ y }}
+        className="absolute inset-0 will-change-transform"
+      >
+        <Image
+          src="/images/bg-banner.jpg" // replace with your image path
+          alt="Hero background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </motion.div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+
+      {/* Header */}
+      <header className="absolute top-0 left-0 z-20 w-full bg-transparent">
+        <nav className="flex items-center justify-between px-6 py-5 text-white">
+          <div className="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 64 64"
+              width="64"
+              height="64"
+              role="img"
+              aria-labelledby="title1 desc1"
+            >
+              <title id="title1">Camera logo</title>
+              <desc id="desc1">
+                A modern flat camera icon with circular lens and small flash
+              </desc>
+              <rect
+                x="6"
+                y="16"
+                width="52"
+                height="32"
+                rx="4"
+                ry="4"
+                fill="#FFC400"
+              />
+              <rect x="10" y="12" width="12" height="8" rx="2" fill="#111827" />
+              <circle cx="32" cy="32" r="11" fill="#ffffff" />
+              <circle cx="32" cy="32" r="7" fill="#111827" />
+              <circle cx="26" cy="26" r="2.3" fill="#ffffff" opacity="0.9" />
+            </svg>
+
+            <Link
+              href="/"
+              className="hidden sm:block text-2xl font-bold tracking-wide"
+            >
+              Photography
+            </Link>
+          </div>
+
+          {/* Desktop Menu */}
+          <ul className="hidden md:flex gap-8 text-lg">
+            <li>
+              <Link href="/" className="hover:text-gray-300 transition">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-gray-300 transition">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/portfolio" className="hover:text-gray-300 transition">
+                Portfolio
+              </Link>
+            </li>           
+            <li>
+              <Link href="/contacts" className="hover:text-gray-300 transition">
+                Get in Touch
+              </Link>
+            </li>
+            <li>
+              <Link href="/login" className="hover:text-gray-300 transition">
+                Login
+              </Link>
+            </li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              // Close icon
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              // Hamburger icon
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16m0 6H4"
+                />
+              </svg>
+            )}
+          </button>
+        </nav>
+
+        {/* Mobile Drawer Menu */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden absolute top-full left-0 w-full bg-black/90 backdrop-blur-md text-white"
+            >
+              <ul className="flex flex-col items-center gap-6 py-6 text-lg">
+                <li>
+                  <Link
+                    href="/"
+                    onClick={() => setMenuOpen(false)}
+                    className="hover:text-gray-300 transition"
+                  >
+                    Home
+                  </Link>
+                </li>
+                 <li>
+              <Link href="/about" onClick={() => setMenuOpen(false)} className="hover:text-gray-300 transition">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/portfolio" onClick={() => setMenuOpen(false)} className="hover:text-gray-300 transition">
+                Portfolio
+              </Link>
+            </li>
+          
+            <li>
+              <Link href="/contacts" onClick={() => setMenuOpen(false)} className="hover:text-gray-300 transition">
+                Get in Touch
+              </Link>
+            </li>
+            <li>
+              <Link href="/login" onClick={() => setMenuOpen(false)} className="hover:text-gray-300 transition">
+                Login
+              </Link>
+            </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* Hero Section */}
+      {/* "relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-6 */}
+      <Carousel 
+        className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-6"
+        opts={{
+          align: "center",
+          loop: true,
+          duration: 60,
+        }}
+        plugins={[
+          Autoplay({
+            delay: 5000,
+            stopOnInteraction: false,
+          }),
+        ]}
+      >
+        <CarouselContent className="h-full">
+          <CarouselItem className="h-full">
+           <div className="text-center space-y-8">
+              <div>
+                <h1 className="text-5xl font-bold text-white mb-4">
+                  Welcome to Photography
+                </h1>
+                <p className="text-xl text-gray-400 mb-8">
+                  Capture moments, create memories
+                </p>
+              </div>
+
+              <div className="flex gap-4 justify-center flex-wrap">
+                  <Link
+                      href="/portfolio"
+                      className="rounded-2xl border border-yellow-500 px-8 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
+                    >
+                      Portfolio
+                  </Link>
+                  <Link
+                      href="/contacts"
+                      className="rounded-2xl bg-yellow-500 px-8 py-3 font-semibold text-white hover:bg-yellow-700 transition"
+                    >
+                      Get in Touch
+                  </Link>
+              </div>
+            </div>
+          </CarouselItem>
+          <CarouselItem className="h-full">
+            <motion.div
+              className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <motion.h1
+              initial={{opacity:0, x: -100}}
+              animate={{opacity:1, x: 0}}
+              transition={{duration:2}}
+              className="text-xl  sm:text-2xl md:text-4xl lg:text-7xl font-extrabold mb-4 drop-shadow-lg">
+                Capture Your <span className="text-yellow-500">Moments
+                </span>
+              </motion.h1>
+
+              <p className="max-w-md md:max-w-2xl text-base md:text-xl mb-8 text-gray-200">
+                Professional photography that brings your memories to life.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/portfolio"
+                  className="rounded-2xl border border-yellow-500 px-8 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
+                >
+                  Portfolio
+                </Link>
+                <Link
+                  href="/contact"
+                  className="rounded-2xl bg-yellow-500 px-8 py-3 font-semibold text-white hover:bg-yellow-700 transition"
+                >
+                  Get in Touch
+                </Link>
+              </div>
+            </motion.div>
+          </CarouselItem>
+           
+        </CarouselContent>
+      </Carousel>
+    </section>
+  );
+}
