@@ -135,18 +135,23 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: "My Works-Gallery",
+      url: "/dashboard/my-works",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
+      name: "Monthly Activity",
+      url: "/dashboard/monthly-activity",
       icon: PieChart,
     },
     {
-      name: "Travel",
-      url: "#",
+      name: "Portfolios",
+      url: "/dashboard/portfolio",
+      icon: Map,
+    },
+    {
+      name: "Contacts",
+      url: "/dashboard/contacts",
       icon: Map,
     },
   ],
@@ -167,8 +172,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">LitPixel Photography</span>
+                  <span className="truncate text-xs"></span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -176,7 +181,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {/* <NavMain items={data.navMain} /> */}
         <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
