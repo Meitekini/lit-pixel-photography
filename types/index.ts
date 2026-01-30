@@ -78,6 +78,17 @@ export interface PhotographyCategoryData {
   image_url: string;
 }
 
+export type Contact = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  details: string
+  createdAt: Date
+  updatedAt: Date
+}
+
 export const sampleImages: Gallery[] = [
   {
     id: "gallery-001",
