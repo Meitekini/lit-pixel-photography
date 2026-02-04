@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
 import ScrollToTop from "@/components/shared/scroll-to-top";
 
@@ -24,6 +25,7 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -32,5 +34,6 @@ export default function AppLayout({
         {children}
       </body>
     </html>
+    </ClerkProvider>
   );
 }
