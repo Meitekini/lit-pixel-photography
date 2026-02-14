@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
 import ScrollToTop from "@/components/shared/scroll-to-top";
+import { Toaster } from "@/components/ui/sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function AppLayout({
       >
         <ScrollToTop />
         {children}
+        <Toaster />
       </body>
     </html>
     </ClerkProvider>

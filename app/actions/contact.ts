@@ -1,8 +1,6 @@
-'use server';
+"use server";
 
 import { prisma } from "@/lib/prisma";
-
-
 
 interface ContactFormData {
   firstName: string;
@@ -13,12 +11,14 @@ interface ContactFormData {
 }
 
 export async function saveContact(formData: ContactFormData) {
+  console.log(formData);
+
   try {
     // Validate required fields
     if (!formData.firstName || !formData.lastName || !formData.email) {
       return {
         success: false,
-        error: 'First name, last name, and email are required',
+        error: "First name, last name, and email are required",
       };
     }
 
@@ -30,7 +30,7 @@ export async function saveContact(formData: ContactFormData) {
     if (existingContact) {
       return {
         success: false,
-        error: 'A contact with this email already exists',
+        error: "A contact with this email already exists",
       };
     }
 
@@ -44,17 +44,20 @@ export async function saveContact(formData: ContactFormData) {
         details: formData.details || null,
       },
     });
-
+    console.log(contact);
     return {
       success: true,
-      message: 'Contact saved successfully',
+      message: "Contact saved successfully",
       contact,
     };
   } catch (error) {
-    console.error('Error saving contact:', error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    const errorStack = error instanceof Error ? error.stack : "";
+    console.error("Error saving contact:", errorMessage, errorStack);
     return {
       success: false,
-      error: 'Failed to save contact. Please try again.',
+      error: "Failed to save contact. Please try again.",
     };
   }
 }

@@ -29,8 +29,8 @@ function Contacts() {
 
     try {
       const result = await saveContact({
-        firstName: formData.firstname,
-        lastName: formData.lastname,
+        firstname: formData.firstname,
+        lastname: formData.lastname,
         email: formData.email,
         phone: formData.phone || undefined,
         details: formData.details || undefined,
@@ -47,9 +47,11 @@ function Contacts() {
         });
         
       } else {
+        console.log(result.error)
         setMessage({ type: 'error', text: result.error || 'Failed to save contact' });
       }
     } catch (error) {
+      console.log(error)
       setMessage({ type: 'error', text: 'An error occurred. Please try again.' });
     } finally {
       setIsLoading(false);
