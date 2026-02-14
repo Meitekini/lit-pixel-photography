@@ -101,7 +101,7 @@ export default function Banner() {
               </Link>
             </li>
             <li>
-              <Link href="/login" className="hover:text-gray-300 transition">
+              <Link href="/sign-in" className="hover:text-gray-300 transition">
                 Login
               </Link>
             </li>
