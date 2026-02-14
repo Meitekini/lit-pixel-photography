@@ -34,19 +34,22 @@ export function InquiryForm() {
       details: "",
     },
   });
-  async function onSubmit(data: z.infer<typeof contactSchema>) {
-    toast.loading("Submitting inquiry...");
+  async function onSubmit(data: z.infer<typeof contactSchema>) {    
     const res = await fetch("/api/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     const result = await res.json();
-    if (!result.success) {
-      toast.error(result.error || "Failed to save contact", { position: "top-left" });
-    } else {
-      toast.success("Contact saved successfully!", { position: "top-left" });
-    }
+    try{
+    if (!result.success) { 
+      toast.error(result.error || "Failed to save contact", { position: "top-left", });
+     } else { 
+      toast.success("Contact saved successfully!", { position: "top-left", });
+     } 
+    } catch (err) {
+       toast.error("Unexpected error occurred", { position: "top-left" });
+       }
   }
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-16 mx-auto">
@@ -193,10 +196,10 @@ export function InquiryForm() {
                 <div className="mt-4 grid">
                   <button
                     type="submit"
-                    disabled={form.formState.isLoading}
+                    disabled={form.formState.isSubmitting}
                     className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-400 text-white hover:bg-yellow-500 focus:outline-hidden focus:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
                   >
-                    {form.formState.isLoading ? "Sending..." : "Send inquiry"}
+                    {form.formState.isSubmitting ? "Sending..." : "Send inquiry"}
                   </button>
                 </div>
               </div>

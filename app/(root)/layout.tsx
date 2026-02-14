@@ -6,7 +6,7 @@ import Footer from '@/components/shared/footer'
 
 
 export const metadata: Metadata = {
-  title: 'Photography | Portfolio',
+  title: 'LitPixel Photography | Portfolio',
   description: 'Explore stunning photography and capture moments that matter',
   icons: {
     icon: '/favicon.ico',

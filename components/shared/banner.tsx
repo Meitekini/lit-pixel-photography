@@ -74,7 +74,9 @@ export default function Banner() {
               href="/"
               className="hidden sm:block text-2xl font-bold tracking-wide"
             >
-              Photography
+              LitPixel {" "}
+              <span className="text-yellow-500">Photo</span>
+              graphy
             </Link>
           </div>
 
