@@ -19,7 +19,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { submitContactForm } from "@/app/actions/inquiry";
+
 import { contactSchema } from "@/lib/validation";
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -46,6 +46,7 @@ export function InquiryForm() {
       toast.error(result.error || "Failed to save contact", { position: "top-left", });
      } else { 
       toast.success("Contact saved successfully!", { position: "top-left", });
+      form.reset();
      } 
     } catch (err) {
        toast.error("Unexpected error occurred", { position: "top-left" });
