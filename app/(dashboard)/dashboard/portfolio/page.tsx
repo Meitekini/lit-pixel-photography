@@ -1,7 +1,10 @@
-import React from 'react'
+import TestUpload from "@/components/dashboard/test-upload";
+
 
 export default function page() {
   return (
-    <div>Portfolio Page</div>
+    <div>
+      <TestUpload />
+    </div>
   )
 }
