@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
+    
   },
   "dependencies": {
     "@clerk/nextjs": "^6.37.2",
