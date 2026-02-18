@@ -1,27 +1,28 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
+import { put } from "@vercel/blob"; 
+// import prisma from "@/lib/prisma";
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const body = (await request.json()) as HandleUploadBody;
-  console.log(body);
-
+  
+   const body = (await request.json()) as HandleUploadBody;
+  
   try {
     const jsonResponse = await handleUpload({
       body,
       request,
       onBeforeGenerateToken: async (
-        pathname
+        pathname,
         /* clientPayload */
       ) => {
         // Generate a client token for the browser to upload the file
         // Make sure to authenticate and authorize users before generating the token.
         // Otherwise, you're allowing anonymous uploads.
-
+ 
         return {
-          allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],
+          allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp'],
           addRandomSuffix: true,
-          callbackUrl:
-            "https://miniature-goggles-r7q67pp577gc479-3000.app.github.dev/api/images/upload",
+          // callbackUrl: 'https://example.com/api/avatar/upload',
           // optional, `callbackUrl` is automatically computed when hosted on Vercel
           tokenPayload: JSON.stringify({
             // optional, sent to your server on upload completion
@@ -32,24 +33,25 @@ export async function POST(request: Request): Promise<NextResponse> {
       onUploadCompleted: async ({ blob, tokenPayload }) => {
         // Called by Vercel API on client upload completion
         // Use tools like ngrok if you want this to work locally
-
-        console.log("blob upload completed", blob, tokenPayload);
-
+ 
+        console.log('blob upload completed', blob, tokenPayload);
+ 
         try {
           // Run any logic after the file upload completed
           // const { userId } = JSON.parse(tokenPayload);
           // await db.update({ avatar: blob.url, userId });
         } catch (error) {
-          throw new Error("Could not update user");
+          throw new Error('Could not update user');
         }
       },
     });
-
+ 
     return NextResponse.json(jsonResponse);
   } catch (error) {
     return NextResponse.json(
       { error: (error as Error).message },
-      { status: 400 } // The webhook will retry 5 times waiting for a 200
+      { status: 400 }, // The webhook will retry 5 times waiting for a 200
     );
-  }
+  } 
+
 }

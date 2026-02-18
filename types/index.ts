@@ -72,7 +72,7 @@ export interface CardProps {
   cards: CardData[];
 }
 
-export interface PhotographyCategoryData {
+export interface PhotographyCategory {
   category: string;
   description: string;
   image_url: string;
@@ -288,7 +288,7 @@ export const sampleImages: Gallery[] = [
   },
 ];
 
-export const photograpyCategoryData: PhotographyCategoryData[] = [
+export const photograpyCategoryData: PhotographyCategory[] = [
   {
     category: "Landscape Photography",
     description:

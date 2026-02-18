@@ -137,6 +137,11 @@ const data = {
   ],
   projects: [
     {
+      name: "Photography Categories",
+      url: "/dashboard/photography-category",
+      icon: Frame,
+    },
+    {
       name: "My Works-Gallery",
       url: "/dashboard/my-works",
       icon: Frame,
