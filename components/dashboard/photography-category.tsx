@@ -105,8 +105,16 @@ export function PhotographyCategoryForm({
       );
       if (!isEdit) {
         form.reset();
+        // Refresh the current route so lists or data update without manual nav
+        if (typeof router.refresh === "function") {
+          router.refresh();
+        } else {
+          // fallback for environments without router.refresh
+          window.location.reload();
+        }
+      } else {
+        router.push("/dashboard/photography-category");
       }
-      router.push("/dashboard/photography-category");
     } else {
       toast.error(
         isEdit
