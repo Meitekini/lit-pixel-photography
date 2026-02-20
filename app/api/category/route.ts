@@ -69,7 +69,7 @@ export async function DELETE(request: Request) {
         id: id,
       },
     });
-
+    revalidatePath("/dashboard/photography-category");
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: {
