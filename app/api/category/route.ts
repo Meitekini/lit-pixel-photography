@@ -1,9 +1,36 @@
 import { prisma } from "@/lib/prisma";
+import { PhotographyCategory } from "@/generated/prisma/client";
+
+export async function GET(request: Request) {
+  try {
+    const photographyCategories = await prisma.photographyCategory.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return new Response(JSON.stringify(photographyCategories), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch photography categories" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
   const { category, image_url, description } = body;
-  console.log(image_url);
 
   const result = await prisma.photographyCategory.create({
     data: {
@@ -51,7 +78,6 @@ export async function DELETE(request: Request) {
       },
     });
   } catch (error) {
-    console.error("Error deleting category:", error);
     return new Response(
       JSON.stringify({ error: "Failed to delete category" }),
       {
