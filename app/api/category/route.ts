@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-
+import { revalidatePath } from "next/cache";
 
 export async function GET(request: Request) {
   try {
@@ -15,7 +15,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    
     return new Response(
       JSON.stringify({ error: "Failed to fetch photography categories" }),
       {
@@ -39,7 +38,7 @@ export async function POST(request: Request) {
       description,
     },
   });
-
+  revalidatePath("/dashboard/photography-category");
   return new Response(JSON.stringify(result), {
     status: 201,
     headers: {
