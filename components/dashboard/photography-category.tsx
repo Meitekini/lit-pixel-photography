@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { upload } from "@vercel/blob/client";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -113,7 +113,7 @@ export function PhotographyCategoryForm({
           window.location.reload();
         }
       } else {
-        router.push("/dashboard/photography-category");
+        redirect("/dashboard/photography-category");
       }
     } else {
       toast.error(
