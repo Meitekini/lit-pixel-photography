@@ -5,22 +5,23 @@ import { PhotographyCategory } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-async function getData(): Promise<PhotographyCategory[]> {
-  try {
-    const photographyCategories = await prisma.photographyCategory.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return photographyCategories as PhotographyCategory[];
-  } catch (error) {
-    console.error("Failed to fetch photography categories:", error);
-    return [];
-  }
-}
+// async function getData(): Promise<PhotographyCategory[]> {
+//   try {
+//     const photographyCategories = await prisma.photographyCategory.findMany({
+//       orderBy: {
+//         createdAt: "desc",
+//       },
+//     });
+//     return photographyCategories as PhotographyCategory[];
+//   } catch (error) {
+//     console.error("Failed to fetch photography categories:", error);
+//     return [];
+//   }
+// }
 
 export default async function Page() {
-  const data = await getData();
+  // const data = await getData();
+  const data = await fetch("/api/category").then((res) => res.json()) as PhotographyCategory[];
 
   return (
     <div className="flex-1 space-y-4 p-4 pt-6">
