@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { PhotographyCategory } from "@/generated/prisma/client";
+
 
 export async function GET(request: Request) {
   try {
