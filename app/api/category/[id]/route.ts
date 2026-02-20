@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function PUT(
   request: NextRequest,
@@ -27,7 +28,7 @@ export async function PUT(
         description,
       },
     });
-
+    revalidatePath("/dashboard/photography-category");
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error updating category:", error);
@@ -57,7 +58,8 @@ export async function DELETE(
         id: id,
       },
     });
-
+    
+    revalidatePath("/dashboard/photography-category");  
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error deleting category:", error);
